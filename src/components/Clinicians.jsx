@@ -23,7 +23,7 @@ export default function Clinicians() {
               data-aos="zoom-in"
               data-aos-delay={100 * (i + 1)}
             >
-              <img src={c.img} alt="" className="clinician-img" />
+              <img src={c.img} alt={c.title} className="clinician-img" />
               <h3>{c.title}</h3>
               <p>{c.desc}</p>
             </div>

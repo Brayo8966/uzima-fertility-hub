@@ -58,6 +58,7 @@ body {
   scroll-behavior: smooth;
   max-width: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 .page { width: 100%; }
 img {
@@ -68,7 +69,7 @@ img {
 
 /* ---------- Navbar ---------- */
 .navbar { background: var(--bg-color); padding: 16px 40px; position: sticky; top:0; z-index:100; box-shadow:0 2px 5px rgba(0,0,0,0.05); }
-.nav-container { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+.nav-container { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; position: relative; }
 
 /* Logo */
 .logo-container { display:flex; align-items:center; gap:12px; }
@@ -82,8 +83,27 @@ img {
 .nav-links .btn { background: var(--accent-color); color:#fff; padding:8px 16px; border-radius:6px; }
 
 /* Hamburger Menu */
-.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
-.hamburger span { width:25px; height:3px; background: var(--text-color); transition: all 0.3s; }
+.hamburger {
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  padding:8px;
+  border-radius:8px;
+  background: rgba(0,0,0,0.02);
+  transition: background 0.3s;
+  margin-left: auto;
+}
+.hamburger:hover {
+  background: rgba(0,0,0,0.06);
+}
+.hamburger span {
+  width:25px;
+  height:3px;
+  background: var(--text-color);
+  border-radius: 999px;
+  transition: all 0.3s;
+}
 .hamburger.open span:nth-child(1){ transform: rotate(45deg) translate(5px,5px); }
 .hamburger.open span:nth-child(2){ opacity:0; }
 .hamburger.open span:nth-child(3){ transform: rotate(-45deg) translate(5px,-5px); }
@@ -265,6 +285,7 @@ img {
 .hours-item:last-child { border-bottom: none; }
 .hours-days { font-weight: 600; color: var(--text-color); font-size: 1rem; }
 .hours-time { color: var(--text-color); font-size: 1rem; }
+.hours-note { margin-top: 12px; font-size: 0.95rem; color: var(--contact-muted); text-align: left; }
 .book-appointment-button-wrap { display: flex; justify-content: center; }
 .book-btn-primary { font-size: 1.1rem; padding: 16px 36px; min-width: 240px; }
 .form-error { color: #b91c1c; font-size: 0.9rem; margin: 4px 0; text-align: left; }
@@ -283,8 +304,65 @@ img {
 .contact-form button { padding:12px; border:none; border-radius:6px; background: var(--primary-color); color:#fff; font-size:1rem; cursor:pointer; transition:0.3s; }
 .contact-form button:hover { background: var(--accent-color); }
 
+.contact-location {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contact-location h3 {
+  margin-bottom: 8px;
+  font-family: var(--heading-font);
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+.contact-location p {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--text-color);
+}
+
 /* ---------- Footer ---------- */
 .footer { background: var(--primary-color); color:#fff; text-align:center; padding:20px; }
+
+/* ---------- Floating WhatsApp Button ---------- */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: #25D366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 900;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+.whatsapp-fab-icon {
+  width: 26px;
+  height: 26px;
+}
+.whatsapp-fab:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+.whatsapp-fab:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+@media (max-width: 480px) {
+  .whatsapp-fab {
+    bottom: 16px;
+    right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+}
 
 /* ---------- Responsive ---------- */
 @media(max-width:992px){
@@ -296,8 +374,28 @@ img {
 }
 @media(max-width:768px){
   .hamburger{display:flex;}
-  .nav-links{flex-direction:column;display:none;gap:16px;}
+  .nav-links{
+    flex-direction:column;
+    display:none;
+    gap:16px;
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    padding:16px 20px 20px;
+    background: var(--card-bg);
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    border: 1px solid var(--input-border);
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: 0;
+  }
   .nav-links.open{display:flex;}
+  .nav-links li a{
+    display:block;
+    width:100%;
+  }
   .navbar{padding:12px 20px;}
   .service-grid{grid-template-columns:1fr;}
   .clinician-cards{grid-template-columns:1fr;}

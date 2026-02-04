@@ -24,7 +24,7 @@ export default function Services({ onOpenIUIHub }) {
             data-aos={i % 2 === 0 ? "fade-right" : "fade-left"}
             data-aos-delay={100 * (i + 1)}
           >
-            <img src={s.img} alt="" className="service-img" />
+            <img src={s.img} alt={s.title} className="service-img" />
             <h3>{s.title}</h3>
             <p>{s.desc}</p>
             <span className="service-card-hint">

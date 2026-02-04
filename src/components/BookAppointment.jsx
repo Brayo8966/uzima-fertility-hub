@@ -100,7 +100,7 @@ function BookAppointment() {
         </p>
 
         <div className="clinic-hours">
-          <h3>Clinic Hours</h3>
+          <h3>Operating Hours</h3>
           <div className="hours-list">
             <div className="hours-item">
               <span className="hours-days">Monday – Friday</span>
@@ -111,6 +111,7 @@ function BookAppointment() {
               <span className="hours-time">9:00 AM – 2:00 PM</span>
             </div>
           </div>
+          <p className="hours-note">Sundays and public holidays we are closed.</p>
         </div>
 
         {!showForm && (
