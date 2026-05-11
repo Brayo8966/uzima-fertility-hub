@@ -13,8 +13,11 @@ import BookAppointment from "./components/BookAppointment";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
+import JoinUs from "./pages/JoinUs";
+
 function App() {
   const [view, setView] = useState("main"); // 'main' | 'iui-hub'
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -25,6 +28,7 @@ function App() {
         <main>
           <IUIHub onBack={() => setView("main")} />
         </main>
+
         <a
           href="https://wa.me/254754727441"
           className="whatsapp-fab"
@@ -45,7 +49,18 @@ function App() {
             />
           </svg>
         </a>
+
         <Footer />
+      </div>
+    );
+  }
+
+  if (view === "join-us") {
+    return (
+      <div className="page">
+        <main>
+          <JoinUs />
+        </main>
       </div>
     );
   }
@@ -62,6 +77,7 @@ function App() {
         <BookAppointment />
         <Contact />
       </main>
+
       <a
         href="https://wa.me/254754727441"
         className="whatsapp-fab"
@@ -82,6 +98,7 @@ function App() {
           />
         </svg>
       </a>
+
       <Footer />
     </div>
   );
