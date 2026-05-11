@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Join Us | Uzima Fertility</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #ffffff;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #0f766e;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .file-note {
+      font-size: 13px;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    button {
+      background: #0f766e;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: #0b5e58;
+    }
+
+    .closed-message {
+      display: none;
+      text-align: center;
+      color: red;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 30px;
+    }
+
+    .status-message {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #0f766e;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Application Form</h1>
+
+    <p>
+      Please complete the form below and upload your supporting documents.
+    </p>
+
+    <p class="status-message" id="applicationStatus"></p>
+
+    <div class="closed-message" id="closedMessage"></div>
+
+    <form
+      id="applicationForm"
+      action="https://formsubmit.co/uzimafertility@gmail.com"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+
+      <!-- Full Name -->
+      <div>
+        <label for="name">Full Name</label>
+
+        <input
+          type="text"
+          id="name"
+          name="Full Name"
+          required
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email">Email Address</label>
+
+        <input
+          type="email"
+          id="email"
+          name="Email"
+          required
+        />
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <label for="phone">Phone Number</label>
+
+        <input
+          type="tel"
+          id="phone"
+          name="Phone Number"
+          required
+        />
+      </div>
+
+      <!-- Self Description -->
+      <div>
+        <label for="description">Brief Self Description</label>
+
+        <textarea
+          id="description"
+          name="Brief Self Description"
+          placeholder="Tell us briefly about yourself..."
+          required
+        ></textarea>
+      </div>
+
+      <!-- CV Upload -->
+      <div>
+        <label for="cv">Upload CV</label>
+
+        <input
+          type="file"
+          id="cv"
+          name="CV"
+          accept=".pdf,.doc,.docx"
+          required
+        />
+
+        <div class="file-note">
+          Accepted formats: PDF, DOC, DOCX (Max 10MB)
+        </div>
+      </div>
+
+      <!-- Other Documents -->
+      <div>
+        <label for="documents">
+          Upload Other Relevant Documents
+        </label>
+
+        <input
+          type="file"
+          id="documents"
+          name="Other Documents"
+          multiple
+          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+        />
+
+        <div class="file-note">
+          Accepted formats: PDF, DOC, DOCX, JPG, PNG
+          (Max 10MB per file)
+        </div>
+      </div>
+
+      <!-- Hidden Config -->
+
+      <input
+        type="hidden"
+        name="_subject"
+        value="New Application Submission"
+      />
+
+      <input
+        type="hidden"
+        name="_captcha"
+        value="false"
+      />
+
+      <input
+        type="hidden"
+        name="_template"
+        value="table"
+      />
+
+      <!-- REMOVE THIS IF thank-you.html DOESN'T EXIST -->
+      <!--
+      <input
+        type="hidden"
+        name="_next"
+        value="https://uzimafertility.co.ke/thank-you.html"
+      />
+      -->
+
+      <div class="error" id="errorMessage"></div>
+
+      <button type="submit">
+        Submit Application
+      </button>
+
+    </form>
+
+  </div>
+
+  <script>
+
+    // ====================================
+    // APPLICATION OPEN/CLOSE SETTINGS
+    // ====================================
+
+    // APPLICATION OPEN DATE
+    const openDate = new Date("2026-05-10T08:00:00");
+
+    // APPLICATION CLOSE DATE
+    const closeDate = new Date("2026-06-30T23:59:59");
+
+    // CURRENT DATE
+    const now = new Date();
+
+    // ELEMENTS
+    const form = document.getElementById("applicationForm");
+    const closedMessage = document.getElementById("closedMessage");
+    const applicationStatus = document.getElementById("applicationStatus");
+
+    // ====================================
+    // APPLICATION STATUS LOGIC
+    // ====================================
+
+    // BEFORE OPENING
+    if (now < openDate) {
+
+      form.style.display = "none";
+
+      closedMessage.style.display = "block";
+
+      closedMessage.innerHTML =
+        "Applications are not yet open. Please check back later.";
+
+      applicationStatus.innerHTML =
+        "Applications opening soon.";
+
+    }
+
+    // AFTER CLOSING
+    else if (now > closeDate) {
+
+      form.style.display = "none";
+
+      closedMessage.style.display = "block";
+
+      closedMessage.innerHTML =
+        "Applications are now closed.";
+
+      applicationStatus.innerHTML =
+        "Application period has ended.";
+
+    }
+
+    // APPLICATIONS OPEN
+    else {
+
+      form.style.display = "flex";
+
+      closedMessage.style.display = "none";
+
+      applicationStatus.innerHTML =
+        "Applications are currently open.";
+
+    }
+
+    // ====================================
+    // FILE SIZE VALIDATION
+    // ====================================
+
+    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
+    const cvInput = document.getElementById("cv");
+
+    const documentsInput =
+      document.getElementById("documents");
+
+    const errorMessage =
+      document.getElementById("errorMessage");
+
+    function validateFiles(input) {
+
+      for (let file of input.files) {
+
+        if (file.size > MAX_FILE_SIZE) {
+
+          errorMessage.textContent =
+            `${file.name} exceeds the 10MB limit.`;
+
+          input.value = "";
+
+          return false;
+
+        }
+
+      }
+
+      errorMessage.textContent = "";
+
+      return true;
+
+    }
+
+    cvInput.addEventListener("change", () => {
+      validateFiles(cvInput);
+    });
+
+    documentsInput.addEventListener("change", () => {
+      validateFiles(documentsInput);
+    });
+
+    form.addEventListener("submit", (e) => {
+
+      const cvValid = validateFiles(cvInput);
+
+      const docsValid = validateFiles(documentsInput);
+
+      if (!cvValid || !docsValid) {
+        e.preventDefault();
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
